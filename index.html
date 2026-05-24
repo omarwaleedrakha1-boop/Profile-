@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Omar Rakha | VIP Profile</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;800;900&family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght=600;800;900&family=Tajawal:wght=400;500;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
             /* درك مود رايق جداً (أزرق غامق عميق ملكي) */
@@ -13,12 +13,8 @@
             --card-sub: #3A506B;
             --text-main: #FFFFFF;
             --text-muted: #94A3B8;
-            
-            /* ألوان أزرار الأيفون الجديدة الفخمة على ذوقي */
-            --ios-neon-blue: #0A84FF;   /* أزرق أبل المضيء */
-            --ios-titanium: #3A3A3C;    /* رمادي تيتانيوم فاخر */
-            --ios-emerald: #30D158;     /* أخضر زمردي للواتساب */
-            --ios-gold: #FFD60A;        /* ذهبي للتوثيق والثقة */
+            --ios-neon-blue: #64B5F6; /* الأزرق المريح المستعمل في النصوص والأرقام */
+            --ios-gold: #FFD60A;
         }
 
         * {
@@ -44,7 +40,7 @@
             background: var(--card-bg);
             width: 100%;
             max-width: 440px;
-            border-radius: 38px; /* حواف دائرية فخمة مثل الآيفون */
+            border-radius: 38px;
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(255, 255, 255, 0.05);
             overflow: hidden;
@@ -130,7 +126,7 @@
             background: rgba(255, 255, 255, 0.08);
         }
 
-        /* أزرار على ستايل الأيفون الرسمي الحقيقي (iOS Rounded Corner) */
+        /* أزرار على ستايل الأيفون الشفاف المتناسق مع الصورة المرسلة بالظبط */
         .social-actions {
             display: flex;
             flex-direction: column;
@@ -142,34 +138,39 @@
             align-items: center;
             justify-content: center;
             gap: 12px;
-            padding: 16px;
-            border-radius: 14px; /* انحناء أزرار الـ iOS الدقيق */
+            padding: 18px 16px;
+            border-radius: 16px; /* نفس حواف كروت الخدمات وطرق الدفع */
             text-decoration: none;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 700;
             color: #FFFFFF;
-            border: none;
+            /* اللون الشفاف الموحد المطلوب */
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.25s ease;
         }
 
-        /* تأثير الضغطة المرن (Haptic Feedback Effect) */
+        /* تأثير الحركة والضغط المرن للآيفون */
+        .btn-apple:hover {
+            border-color: rgba(100, 181, 246, 0.4);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
         .btn-apple:active {
-            transform: scale(0.96);
-            opacity: 0.9;
+            transform: scale(0.97);
+            background: rgba(255, 255, 255, 0.08);
         }
 
-        /* ألوان الأزرار الفخمة على زوقي */
-        .btn-apple.wa { background: var(--ios-emerald); }
-        .btn-apple.tg { background: var(--ios-titanium); }
-        .btn-apple.primary { background: var(--ios-neon-blue); }
+        /* تمييز خفيف جداً لزر الانتقال الرئيسي لجذب الانتباه مع الحفاظ على نفس الستايل */
+        .btn-apple.primary {
+            border-color: rgba(100, 181, 246, 0.2);
+        }
         
+        /* زر الرجوع الموحد في الصفحة الثانية */
         .btn-apple.back { 
-            background: rgba(255, 255, 255, 0.08); 
-            border: 1px solid rgba(255, 255, 255, 0.1);
             margin-top: 25px;
-            font-size: 14.5px;
+            background: rgba(255, 255, 255, 0.04);
         }
 
         /* قسم الدلع والـ Trust والضمان (iOS Widgets) */
@@ -182,7 +183,7 @@
 
         .trust-card {
             background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             padding: 14px 16px;
             border-radius: 16px;
             display: flex;
@@ -322,11 +323,11 @@
 
             <div class="info-title">روابط تنفيذ الطلبات والمحادثة</div>
             <div class="social-actions">
-                <a href="https://wa.me/201028209205" target="_blank" class="btn-apple wa">
+                <a href="https://wa.me/201028209205" target="_blank" class="btn-apple">
                     💬 تواصل فوري عبر واتساب
                 </a>
                 
-                <a href="https://t.me/G1B0H6J" target="_blank" class="btn-apple tg">
+                <a href="https://t.me/G1B0H6J" target="_blank" class="btn-apple">
                     ✈️ انضم لقناتنا على تليجرام
                 </a>
 
@@ -368,7 +369,7 @@
                     <div class="service-icon">🚀</div>
                     <div class="service-text">
                         متاح تزويد متابعين لكل منصات السوشيال ميديا
-                        <span>مش عايز يبقى عندك متابعين زي المشاهير؟</span>
+                        <span>مش عايز يبقى عندك متابعين زي المشاهير?</span>
                     </div>
                 </div>
                 <div class="service-item">
