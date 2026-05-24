@@ -11,11 +11,14 @@
             --bg-main: #0B132B; 
             --card-bg: #1C2541; 
             --card-sub: #3A506B;
-            --iphone-blue: #007AFF; /* أزرق أبل الرسمي */
             --text-main: #FFFFFF;
             --text-muted: #94A3B8;
-            --whatsapp-color: #34C759; /* أخضر أبل للواتساب */
-            --telegram-color: #2F80ED;
+            
+            /* ألوان أزرار الأيفون الجديدة الفخمة على ذوقي */
+            --ios-neon-blue: #0A84FF;   /* أزرق أبل المضيء */
+            --ios-titanium: #3A3A3C;    /* رمادي تيتانيوم فاخر */
+            --ios-emerald: #30D158;     /* أخضر زمردي للواتساب */
+            --ios-gold: #FFD60A;        /* ذهبي للتوثيق والثقة */
         }
 
         * {
@@ -42,7 +45,7 @@
             width: 100%;
             max-width: 440px;
             border-radius: 38px; /* حواف دائرية فخمة مثل الآيفون */
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(255, 255, 255, 0.05);
             overflow: hidden;
             position: relative;
@@ -51,18 +54,18 @@
         /* أنيميشن التنقل بين الصفحات */
         .page {
             padding: 35px 24px;
-            display: none; /* إخفاء افتراضي */
+            display: none; 
             animation: fadeInPage 0.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
         .page.active {
-            display: block; /* إظهار الصفحة النشطة فقط */
+            display: block; 
         }
 
         /* الهيدر */
         .brand-header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .avatar-container {
@@ -82,16 +85,17 @@
         }
 
         .badge-trusted {
-            background: rgba(0, 122, 255, 0.15);
-            color: #64B5F6;
+            background: rgba(255, 214, 10, 0.1);
+            color: var(--ios-gold);
             font-family: 'Cairo', sans-serif;
             font-size: 11.5px;
             font-weight: 800;
-            padding: 5px 14px;
+            padding: 6px 14px;
             border-radius: 50px;
             display: inline-flex;
             margin-bottom: 12px;
-            border: 1px solid rgba(0, 122, 255, 0.3);
+            border: 1px solid rgba(255, 214, 10, 0.25);
+            letter-spacing: 0.5px;
         }
 
         .user-name {
@@ -109,7 +113,7 @@
 
         /* العناوين الداخلية */
         .info-title {
-            font-size: 15px;
+            font-size: 14px;
             color: var(--text-muted);
             font-weight: 800;
             margin: 25px 0 14px;
@@ -126,7 +130,7 @@
             background: rgba(255, 255, 255, 0.08);
         }
 
-        /* أزرار على ستايل الأيفون (iOS Style Buttons) */
+        /* أزرار على ستايل الأيفون الرسمي الحقيقي (iOS Rounded Corner) */
         .social-actions {
             display: flex;
             flex-direction: column;
@@ -139,7 +143,7 @@
             justify-content: center;
             gap: 12px;
             padding: 16px;
-            border-radius: 14px; /* حواف أزرار الـ iOS الشهيرة */
+            border-radius: 14px; /* انحناء أزرار الـ iOS الدقيق */
             text-decoration: none;
             font-size: 16px;
             font-weight: 700;
@@ -147,24 +151,68 @@
             border: none;
             cursor: pointer;
             transition: all 0.2s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
-        /* تأثير الضغطة المرن للأيفون */
+        /* تأثير الضغطة المرن (Haptic Feedback Effect) */
         .btn-apple:active {
-            transform: scale(0.97);
-            opacity: 0.85;
+            transform: scale(0.96);
+            opacity: 0.9;
         }
 
-        .btn-apple.wa { background: var(--whatsapp-color); }
-        .btn-apple.tg { background: var(--telegram-color); }
-        .btn-apple.primary { background: var(--iphone-blue); }
+        /* ألوان الأزرار الفخمة على زوقي */
+        .btn-apple.wa { background: var(--ios-emerald); }
+        .btn-apple.tg { background: var(--ios-titanium); }
+        .btn-apple.primary { background: var(--ios-neon-blue); }
         
         .btn-apple.back { 
             background: rgba(255, 255, 255, 0.08); 
             border: 1px solid rgba(255, 255, 255, 0.1);
             margin-top: 25px;
             font-size: 14.5px;
+        }
+
+        /* قسم الدلع والـ Trust والضمان (iOS Widgets) */
+        .trust-widgets {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .trust-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 14px 16px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .trust-icon {
+            font-size: 20px;
+            background: rgba(255, 255, 255, 0.04);
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            color: var(--ios-gold);
+        }
+
+        .trust-details h3 {
+            font-size: 14px;
+            font-weight: 800;
+            color: #FFFFFF;
+        }
+
+        .trust-details p {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 2px;
+            line-height: 1.4;
         }
 
         /* الصفحة الثانية: كروت الخدمات */
@@ -205,7 +253,7 @@
         .service-text span {
             display: block;
             font-size: 12.5px;
-            color: #64B5F6;
+            color: var(--ios-neon-blue);
             margin-top: 2px;
             font-weight: 500;
         }
@@ -244,7 +292,7 @@
             font-family: 'Cairo', sans-serif;
             font-size: 14px;
             font-weight: 800;
-            color: #64B5F6;
+            color: var(--ios-neon-blue);
             background: rgba(255, 255, 255, 0.05);
             padding: 5px 12px;
             border-radius: 10px;
@@ -252,7 +300,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* أنيميشن انتقال شبيه بالـ iOS */
         @keyframes fadeInPage {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -265,7 +312,7 @@
         
         <div id="page-home" class="page active">
             <div class="brand-header">
-                <span class="badge-trusted">🛡️ الحساب الرسمي الموثق</span>
+                <span class="badge-trusted">👑 بائع معتمد وموثوق بنسبة 100%</span>
                 <div class="avatar-container">
                     <img class="avatar-img" src="logo.png" alt="Omar Rakha">
                 </div>
@@ -273,19 +320,44 @@
                 <p class="user-tag">@Omar_Rakha</p>
             </div>
 
-            <div class="info-title">خيارات التواصل</div>
+            <div class="info-title">روابط تنفيذ الطلبات والمحادثة</div>
             <div class="social-actions">
                 <a href="https://wa.me/201028209205" target="_blank" class="btn-apple wa">
-                    💬 تواصل عبر واتساب
+                    💬 تواصل فوري عبر واتساب
                 </a>
                 
                 <a href="https://t.me/G1B0H6J" target="_blank" class="btn-apple tg">
-                    ✈️ تابعني على تليجرام
+                    ✈️ انضم لقناتنا على تليجرام
                 </a>
 
                 <button onclick="navigateTo('page-services')" class="btn-apple primary">
-                    📋 خدماتي وطرق الدفع
+                    📋 تصفح خدماتي وطرق الدفع
                 </button>
+            </div>
+
+            <div class="info-title">لماذا تختار Omar Rakha؟</div>
+            <div class="trust-widgets">
+                <div class="trust-card">
+                    <div class="trust-icon">🛡️</div>
+                    <div class="trust-details">
+                        <h3>أمان وضمان كامل (Trusted)</h3>
+                        <p>جميع المعاملات والتحويلات آمنة ومضمونة وموثوقة تماماً.</p>
+                    </div>
+                </div>
+                <div class="trust-card">
+                    <div class="trust-icon">⚡</div>
+                    <div class="trust-details">
+                        <h3>سرعة تنفيذ فائقة</h3>
+                        <p>شحن وتزويد فوري بمجرد تأكيد الدفع دون أي تأخير.</p>
+                    </div>
+                </div>
+                <div class="trust-card">
+                    <div class="trust-icon">⭐</div>
+                    <div class="trust-details">
+                        <h3>دعم فني متواصل</h3>
+                        <p>موجودين دائماً لخدمتك ومتابعة طلبك خطوة بخطوة.</p>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -338,11 +410,9 @@
 
     <script>
         function navigateTo(pageId) {
-            // إخفاء كل الصفحات أولاً
             document.querySelectorAll('.page').forEach(page => {
                 page.classList.remove('active');
             });
-            // إظهار الصفحة المطلوبة فقط
             document.getElementById(pageId).classList.add('active');
         }
     </script>
