@@ -33,6 +33,45 @@
             align-items: center;
             min-height: 100vh;
             padding: 20px 15px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* تأثير تساقط النجوم */
+        .star-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            background: radial-gradient(circle, #ffffff 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%;
+            animation: fall linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-20px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(105vh) rotate(360deg);
+                opacity: 0;
+            }
         }
 
         /* كارت البروفايل الرئيسي بستايل الأيفون */
@@ -45,6 +84,7 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
             overflow: hidden;
             position: relative;
+            z-index: 1; /* ليكون فوق النجوم المتساقطة */
         }
 
         /* أنيميشن التنقل بين الصفحات */
@@ -148,6 +188,7 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
             cursor: pointer;
             transition: all 0.25s ease;
+            width: 100%;
         }
 
         .btn-apple:hover {
@@ -251,6 +292,29 @@
             font-weight: 500;
         }
 
+        /* ستايل لأسعار الداتا الجديد */
+        .data-prices {
+            margin-top: 8px;
+            background: rgba(0, 0, 0, 0.15);
+            padding: 10px 14px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .data-price-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: #E2E8F0;
+        }
+
+        .data-price-row .price-val {
+            color: var(--ios-gold);
+            font-weight: 800;
+        }
+
         /* قسم طرق الدفع القابلة للنسخ تلقائياً */
         .payment-container {
             background: rgba(255, 255, 255, 0.02);
@@ -270,6 +334,7 @@
             border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
             cursor: pointer; /* يوضح للعميل أنه قابل للضغط */
             transition: all 0.2s ease;
+            user-select: none;
         }
 
         .pay-method:last-child {
@@ -320,6 +385,9 @@
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             z-index: 9999;
             pointer-events: none;
+            width: max-content;
+            max-width: 90%;
+            text-align: center;
         }
 
         .ios-toast.show {
@@ -335,8 +403,12 @@
 </head>
 <body>
 
+    <!-- طبقة النجوم المتساقطة -->
+    <div class="star-overlay" id="starsContainer"></div>
+
     <div class="profile-card">
         
+        <!-- صفحة الرئيسية -->
         <div id="page-home" class="page active">
             <div class="brand-header">
                 <span class="badge-trusted">👑 بائع معتمد وموثوق بنسبة 100%</span>
@@ -355,7 +427,7 @@
                 <a href="https://t.me/G1B0H6J" target="_blank" class="btn-apple">
                     ✈️ انضم لقناتنا على تليجرام
                 </a>
-                <button onclick="navigateTo('page-services')" class="btn-apple primary">
+                <button onclick="navigateTo('page-services')" class="btn-apple">
                     📋 تصفح خدماتي وطرق الدفع
                 </button>
             </div>
@@ -386,9 +458,24 @@
             </div>
         </div>
 
+        <!-- صفحة الخدمات والدفع والأسعار -->
         <div id="page-services" class="page">
             <div class="info-title" style="margin-top: 0;">📋 قائمة خدماتي</div>
             <div class="services-container">
+                <!-- الخدمة المضافة الجديدة -->
+                <div class="service-item" style="border-color: rgba(255, 214, 10, 0.15);">
+                    <div class="service-icon">🔍</div>
+                    <div class="service-text">
+                        متاح سحب داتا الخطوط المجهولة
+                        <span>لو رقم مضايقك وعايز تعرف مين هجبلك بيانات بطاقته فوري:</span>
+                        <div class="data-prices">
+                            <div class="data-price-row"><span>🔴 فودافون:</span><span class="price-val">100 ج</span></div>
+                            <div class="data-price-row"><span>🟢 اتصالات:</span><span class="price-val">100 ج</span></div>
+                            <div class="data-price-row"><span>🟠 اورنج:</span><span class="price-val">70 ج</span></div>
+                            <div class="data-price-row"><span>🔵 وي (WE):</span><span class="price-val">120 ج</span></div>
+                        </div>
+                    </div>
+                </div>
                 <div class="service-item">
                     <div class="service-icon">🚀</div>
                     <div class="service-text">
@@ -433,32 +520,85 @@
 
     </div>
 
+    <!-- التوست المخصص للنسخ -->
     <div id="toast" class="ios-toast">تم النسخ بنجاح! ✅</div>
 
     <script>
+        let toastTimeout;
+
         // دالة التنقل بين الصفحات
         function navigateTo(pageId) {
             document.querySelectorAll('.page').forEach(page => {
                 page.classList.remove('active');
             });
             document.getElementById(pageId).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' }); 
         }
 
-        // دالة النسخ الذكية مع إظهار توست الأيفون الأنيق
+        // دالة النسخ الاحترافية والذكية
         function copyToClipboard(text, methodLabel) {
-            navigator.clipboard.writeText(text).then(() => {
+            const showToast = () => {
                 const toast = document.getElementById('toast');
                 toast.innerText = `تم نسخ ${methodLabel} بنجاح! ✅`;
                 toast.classList.add('show');
                 
-                // إخفاء التوست تلقائياً بعد ثانيتين ونصف
-                setTimeout(() => {
+                clearTimeout(toastTimeout);
+                
+                toastTimeout = setTimeout(() => {
                     toast.classList.remove('show');
                 }, 2500);
-            }).catch(err => {
-                console.error('فشل النسخ تلقائياً: ', err);
-            });
+            };
+
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(showToast).catch(err => fallbackCopy(text, showToast));
+            } else {
+                fallbackCopy(text, showToast);
+            }
         }
+
+        function fallbackCopy(text, callback) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed"; 
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                callback();
+            } catch (err) {
+                console.error('فشل النسخ: ', err);
+            }
+            document.body.removeChild(textArea);
+        }
+
+        // دالة إنشاء تأثير تساقط النجوم السحري والخفيف
+        function createStars() {
+            const container = document.getElementById('starsContainer');
+            const starCount = 35; // عدد النجوم المتساقطة في نفس الوقت لجعل الأداء سريعاً وممتازاً
+
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // خصائص عشوائية لكل نجمة
+                const size = Math.random() * 4 + 2; // حجم بين 2px و 6px
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${Math.random() * 100}%`;
+                
+                const duration = Math.random() * 5 + 4; // سرعة الهبوط بين 4s و 9s
+                star.style.animationDuration = `${duration}s`;
+                
+                const delay = Math.random() * 6; // تأخير البدء لمنع نزولهم دفعة واحدة
+                star.style.animationDelay = `${delay}s`;
+
+                container.appendChild(star);
+            }
+        }
+
+        // تشغيل النجوم عند تحميل الصفحة
+        window.addEventListener('DOMContentLoaded', createStars);
     </script>
 </body>
 </html>
