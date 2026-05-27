@@ -37,15 +37,15 @@
             position: relative;
         }
 
-        /* تأثير تساقط النجوم */
+        /* طبقة تساقط النجوم (تم جعل الـ z-index أعلى شيء لتظهر فوق الكلام) */
         .star-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
-            z-index: 0;
+            pointer-events: none; /* تضمن أن النجوم لا تعيق الضغط على الأزرار */
+            z-index: 9999; 
             overflow: hidden;
         }
 
@@ -84,7 +84,7 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
             overflow: hidden;
             position: relative;
-            z-index: 1; /* ليكون فوق النجوم المتساقطة */
+            z-index: 1; 
         }
 
         /* أنيميشن التنقل بين الصفحات */
@@ -332,7 +332,7 @@
             align-items: center;
             padding-bottom: 12px;
             border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
-            cursor: pointer; /* يوضح للعميل أنه قابل للضغط */
+            cursor: pointer; 
             transition: all 0.2s ease;
             user-select: none;
         }
@@ -363,7 +363,7 @@
             border-radius: 10px;
             border: 1px solid rgba(255, 255, 255, 0.05);
             letter-spacing: 0.5px;
-            pointer-events: none; /* يجعل الضغط يقع على الكارت بالكامل */
+            pointer-events: none; 
         }
 
         /* إشعار التوست المخصص للايفون عند النسخ */
@@ -383,7 +383,7 @@
             backdrop-filter: blur(10px);
             opacity: 0;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 9999;
+            z-index: 10000; /* أعلى من النجوم ليظهر التوست بوضوح دائم */
             pointer-events: none;
             width: max-content;
             max-width: 90%;
@@ -403,7 +403,7 @@
 </head>
 <body>
 
-    <!-- طبقة النجوم المتساقطة -->
+    <!-- طبقة النجوم المتساقطة فوق العناصر -->
     <div class="star-overlay" id="starsContainer"></div>
 
     <div class="profile-card">
@@ -462,7 +462,7 @@
         <div id="page-services" class="page">
             <div class="info-title" style="margin-top: 0;">📋 قائمة خدماتي</div>
             <div class="services-container">
-                <!-- الخدمة المضافة الجديدة -->
+                <!-- قسم الداتا والخطوط -->
                 <div class="service-item" style="border-color: rgba(255, 214, 10, 0.15);">
                     <div class="service-icon">🔍</div>
                     <div class="service-text">
@@ -535,7 +535,7 @@
             window.scrollTo({ top: 0, behavior: 'smooth' }); 
         }
 
-        // دالة النسخ الاحترافية والذكية
+        // دالة النسخ
         function copyToClipboard(text, methodLabel) {
             const showToast = () => {
                 const toast = document.getElementById('toast');
@@ -572,32 +572,30 @@
             document.body.removeChild(textArea);
         }
 
-        // دالة إنشاء تأثير تساقط النجوم السحري والخفيف
+        // دالة إنشاء تأثير تساقط النجوم
         function createStars() {
             const container = document.getElementById('starsContainer');
-            const starCount = 35; // عدد النجوم المتساقطة في نفس الوقت لجعل الأداء سريعاً وممتازاً
+            const starCount = 35; 
 
             for (let i = 0; i < starCount; i++) {
                 const star = document.createElement('div');
                 star.classList.add('star');
                 
-                // خصائص عشوائية لكل نجمة
-                const size = Math.random() * 4 + 2; // حجم بين 2px و 6px
+                const size = Math.random() * 4 + 2; 
                 star.style.width = `${size}px`;
                 star.style.height = `${size}px`;
                 star.style.left = `${Math.random() * 100}%`;
                 
-                const duration = Math.random() * 5 + 4; // سرعة الهبوط بين 4s و 9s
+                const duration = Math.random() * 5 + 4; 
                 star.style.animationDuration = `${duration}s`;
                 
-                const delay = Math.random() * 6; // تأخير البدء لمنع نزولهم دفعة واحدة
+                const delay = Math.random() * 6; 
                 star.style.animationDelay = `${delay}s`;
 
                 container.appendChild(star);
             }
         }
 
-        // تشغيل النجوم عند تحميل الصفحة
         window.addEventListener('DOMContentLoaded', createStars);
     </script>
 </body>
