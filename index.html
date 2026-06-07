@@ -37,14 +37,14 @@
             position: relative;
         }
 
-        /* طبقة تساقط النجوم (تم جعل الـ z-index أعلى شيء لتظهر فوق الكلام) */
+        /* طبقة تساقط النجوم (تم تحسين الأداء باستخدام الـ GPU) */
         .star-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none; /* تضمن أن النجوم لا تعيق الضغط على الأزرار */
+            pointer-events: none; 
             z-index: 9999; 
             overflow: hidden;
         }
@@ -55,11 +55,12 @@
             border-radius: 50%;
             animation: fall linear infinite;
             opacity: 0;
+            will-change: transform, opacity;
         }
 
         @keyframes fall {
             0% {
-                transform: translateY(-20px) rotate(0deg);
+                transform: translate3d(0, -20px, 0) rotate(0deg);
                 opacity: 0;
             }
             10% {
@@ -69,7 +70,7 @@
                 opacity: 0.8;
             }
             100% {
-                transform: translateY(105vh) rotate(360deg);
+                transform: translate3d(0, 105vh, 0) rotate(360deg);
                 opacity: 0;
             }
         }
@@ -222,6 +223,11 @@
             display: flex;
             align-items: center;
             gap: 14px;
+            transition: transform 0.2s ease;
+        }
+        
+        .trust-card:hover {
+            transform: translateY(-2px);
         }
 
         .trust-icon {
@@ -262,7 +268,7 @@
             padding: 16px;
             border-radius: 16px;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 14px;
         }
 
@@ -275,6 +281,7 @@
             align-items: center;
             justify-content: center;
             border-radius: 12px;
+            flex-shrink: 0;
         }
 
         .service-text {
@@ -282,37 +289,47 @@
             font-weight: 700;
             color: #F8FAFC;
             line-height: 1.5;
+            width: 100%;
         }
 
         .service-text span {
             display: block;
             font-size: 12.5px;
             color: var(--ios-neon-blue);
-            margin-top: 2px;
+            margin-top: 4px;
             font-weight: 500;
         }
 
         /* ستايل لأسعار الداتا الجديد */
         .data-prices {
-            margin-top: 8px;
-            background: rgba(0, 0, 0, 0.15);
-            padding: 10px 14px;
-            border-radius: 10px;
+            margin-top: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 12px;
+            border-radius: 12px;
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 8px;
         }
 
         .data-price-row {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             font-size: 13px;
             color: #E2E8F0;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            padding-bottom: 4px;
+        }
+        
+        .data-price-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
         }
 
         .data-price-row .price-val {
             color: var(--ios-gold);
             font-weight: 800;
+            font-family: 'Cairo', sans-serif;
         }
 
         /* قسم طرق الدفع القابلة للنسخ تلقائياً */
@@ -342,9 +359,13 @@
             border-bottom: none;
         }
 
+        .pay-method:hover {
+            background: rgba(255,255,255,0.01);
+        }
+
         .pay-method:active {
             opacity: 0.6;
-            transform: scale(0.99);
+            transform: scale(0.98);
         }
 
         .pay-label {
@@ -371,7 +392,7 @@
             position: fixed;
             bottom: 40px;
             left: 50%;
-            transform: translateX(-50%) translateY(100px);
+            transform: translate3d(-50%, 100px, 0);
             background: rgba(30, 41, 59, 0.95);
             color: #FFFFFF;
             padding: 12px 24px;
@@ -383,7 +404,7 @@
             backdrop-filter: blur(10px);
             opacity: 0;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 10000; /* أعلى من النجوم ليظهر التوست بوضوح دائم */
+            z-index: 10000; 
             pointer-events: none;
             width: max-content;
             max-width: 90%;
@@ -391,13 +412,13 @@
         }
 
         .ios-toast.show {
-            transform: translateX(-50%) translateY(0);
+            transform: translate3d(-50%, 0, 0);
             opacity: 1;
         }
 
         @keyframes fadeInPage {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translate3d(0, 10px, 0); }
+            to { opacity: 1; transform: translate3d(0, 0, 0); }
         }
     </style>
 </head>
@@ -467,12 +488,14 @@
                     <div class="service-icon">🔍</div>
                     <div class="service-text">
                         متاح سحب داتا الخطوط المجهولة
-                        <span>لو رقم مضايقك وعايز تعرف مين هجبلك بيانات بطاقته فوري:</span>
+                        <span>لو رقم مضايقك وعايز تعرف مين هجبلك بيانات بطاقته خلال 24 ساعه او اقل:</span>
                         <div class="data-prices">
-                            <div class="data-price-row"><span>🔴 فودافون:</span><span class="price-val">100 ج</span></div>
-                            <div class="data-price-row"><span>🟢 اتصالات:</span><span class="price-val">100 ج</span></div>
-                            <div class="data-price-row"><span>🟠 اورنج:</span><span class="price-val">70 ج</span></div>
-                            <div class="data-price-row"><span>🔵 وي (WE):</span><span class="price-val">120 ج</span></div>
+                            <div class="data-price-row"><span>⚫ فودافون:</span><span class="price-val">165 ج</span></div>
+                            <div class="data-price-row"><span>⚫ اتصالات:</span><span class="price-val">190 ج</span></div>
+                            <div class="data-price-row"><span>⚫ اورنج:</span><span class="price-val">165 ج</span></div>
+                            <div class="data-price-row"><span>⚫ بحث NTRA (WE):</span><span class="price-val">165 ج</span></div>
+                            <div class="data-price-row"><span>⚫ فتح كاش اورنج (WE):</span><span class="price-val">155 ج</span></div>
+                            <div class="data-price-row"><span>⚫ سجل مكالمات اورنج (WE):</span><span class="price-val">215 ج</span></div>
                         </div>
                     </div>
                 </div>
@@ -572,7 +595,7 @@
             document.body.removeChild(textArea);
         }
 
-        // دالة إنشاء تأثير تساقط النجوم
+        // دالة إنشاء تأثير تساقط النجوم متقاطع ومحسن الأداء
         function createStars() {
             const container = document.getElementById('starsContainer');
             const starCount = 35; 
@@ -589,7 +612,8 @@
                 const duration = Math.random() * 5 + 4; 
                 star.style.animationDuration = `${duration}s`;
                 
-                const delay = Math.random() * 6; 
+                // جعل النجوم تبدأ من أماكن عشوائية في الحركة فور فتح الصفحة لكي لا تظهر فارغة بالبداية
+                const delay = Math.random() * -8; 
                 star.style.animationDelay = `${delay}s`;
 
                 container.appendChild(star);
